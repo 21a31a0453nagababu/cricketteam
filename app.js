@@ -10,7 +10,7 @@ const intializeDBAndServer=async()=>{
     try{
         db=await open({
         filename:dbPath,        
-        driver=sqlite3.Database,        });
+        driver:sqlite3.Database,        });
         app.listen(3009,()=>{
             console.log("Server Runnning at http://localhost:3009/");
         });
@@ -34,7 +34,7 @@ return {
     role:dbObject.role,
 };
 };
-app.get("/players/",async(request,response=>{
+app.get("/players/",async(request,response)=>{
     const getCricketQuery=`SELECT
     * FROM cricket_team;`
     const cricketArray=await db.all(getCricketQuery);
@@ -43,7 +43,7 @@ app.get("/players/",async(request,response=>{
         convertDbObjectToResponseObject(eachplayer))
     );
 });
-app.post("/players/",aync(request,response)=>{
+app.post("/players/",async(request,response)=>{
     const playerDetails=request.body;
     const {playerName,jerseyNumber,role}=playerDetails;
     const addPlayerQuery=`
@@ -73,7 +73,7 @@ player_id=${playerId};`;
   response.send("Players Details Updated");
   });
 
-  app.delete("/players/playersId/"async(request,response)=>{
+  app.delete("/players/playersId/",async(request,response)=>{
 const {playerId}=request.params;
 const deleteplayerQuery=`
 DELETE FROM cricket_team WHERE player_id=${playerId};`;
