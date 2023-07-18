@@ -73,12 +73,12 @@ player_id=${playerId};`;
   response.send("Players Details Updated");
   });
 
-  app.delete("/players/playersId/",async(request,response)=>{
+  app.delete("/players/:playerId/",async(request,response)=>{
 const {playerId}=request.params;
 const deleteplayerQuery=`
 DELETE FROM cricket_team WHERE player_id=${playerId};`;
-  await db.run("deleteplayerQuery");
-  response.send("players Removed");
+  await db.run(deleteplayerQuery);
+  response.send("player Removed");
   });
   module.exports=app;
 
